@@ -1,0 +1,146 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    background-color: #000000;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    position: relative;
+}
+
+.rain {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.drop {
+    position: absolute;
+    color: #FF69B4; /* Cor rosa */
+    font-size: 20px;
+    animation: fall 5s linear infinite;
+    white-space: nowrap;
+    text-shadow: 0 0 10px #FF69B4, 0 0 20px #FF69B4, 0 0 30px #FF69B4, 0 0 40px #FF69B4;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-100px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+
+/* Estilos para a surpresa */
+.surprise {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.surprise-temp {
+    position: fixed;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.surprise-text {
+    font-size: 32px;
+    font-weight: bold;
+    color: #FF69B4;
+    text-shadow: 0 0 20px #FF69B4, 0 0 40px #FF69B4, 0 0 60px #FF69B4;
+    animation: pulse-glow 1s infinite alternate;
+    text-align: center;
+    white-space: nowrap;
+}
+
+@keyframes pulse-glow {
+    0% {
+        transform: scale(1);
+        text-shadow: 0 0 20px #FF69B4, 0 0 40px #FF69B4, 0 0 60px #FF69B4;
+    }
+    100% {
+        transform: scale(1.1);
+        text-shadow: 0 0 30px #FF69B4, 0 0 60px #FF69B4, 0 0 90px #FF69B4;
+    }
+}
+
+/* Estilos para confetes */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    top: -10px;
+    animation: confetti-fall 3s linear forwards;
+    z-index: 10000;
+}
+
+@keyframes confetti-fall {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Estilos para corações */
+.heart {
+    position: fixed;
+    font-size: 25px;
+    animation: heart-fall 3s ease-out forwards;
+    z-index: 10000;
+    pointer-events: none;
+}
+
+@keyframes heart-fall {
+    0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    25% {
+        transform: translate(var(--drift-x), 50px) scale(1.1) rotate(10deg);
+        opacity: 0.9;
+    }
+    50% {
+        transform: translate(calc(var(--drift-x) * 1.5), 120px) scale(1) rotate(-5deg);
+        opacity: 0.7;
+    }
+    75% {
+        transform: translate(calc(var(--drift-x) * 2), 200px) scale(0.9) rotate(15deg);
+        opacity: 0.4;
+    }
+    100% {
+        transform: translate(calc(var(--drift-x) * 2.5), 300px) scale(0.6) rotate(0deg);
+        opacity: 0;
+    }
+}
+
+.signature {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    color: #FF69B4;
+    font-weight: bold;
+    font-size: 16px;
+    z-index: 1000;
+    text-align: right;
+    line-height: 1.4;
+    text-shadow: 0 0 10px #FF69B4, 0 0 20px #FF69B4, 0 0 30px #FF69B4, 0 0 40px #FF69B4;
+}
