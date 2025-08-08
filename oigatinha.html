@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuva de "Você é Linda"</title>
+    <link rel="stylesheet" href="linda.css">
+</head>
+<body onclick="showSurprise(event)">
+    <div class="rain" id="rain"></div>
+    
+    <div class="signature">Feito pelo seu amorzinho<br>antuness710</div>
+    
+    <script>
+        // Criar chuva organizada em colunas
+        function createRain() {
+            const rainContainer = document.getElementById('rain');
+            const screenWidth = window.innerWidth;
+            const columnWidth = 120; // Largura de cada coluna
+            const numColumns = Math.floor(screenWidth / columnWidth);
+            
+            for (let col = 0; col < numColumns; col++) {
+                const columnX = (col * columnWidth) + (columnWidth / 2);
+                
+                // Criar múltiplas gotas por coluna (aumentado para maior constância)
+                for (let i = 0; i < 25; i++) {
+                    const drop = document.createElement('div');
+                    drop.className = 'drop';
+                    drop.textContent = 'Você é linda!';
+                    
+                    // Posição na coluna com pequena variação
+                    drop.style.left = (columnX + (Math.random() - 0.5) * 40) + 'px';
+                    
+                    // Duração da animação mais rápida
+                    drop.style.animationDuration = (Math.random() * 1.5 + 2.5) + 's';
+                    
+                    // Delay reduzido para maior constância
+                    drop.style.animationDelay = (i * 0.4 + Math.random() * 1) + 's';
+                    
+                    rainContainer.appendChild(drop);
+                }
+            }
+        }
+        
+        // Função para mostrar a surpresa
+        function showSurprise(event) {
+            // Criar elemento de surpresa temporário
+            const surpriseElement = document.createElement('div');
+            surpriseElement.className = 'surprise-temp';
+            surpriseElement.innerHTML = '<div class="surprise-text">Sua gostosa!</div>';
+            
+            // Posição onde foi clicado
+            surpriseElement.style.position = 'fixed';
+            surpriseElement.style.left = event.clientX + 'px';
+            surpriseElement.style.top = event.clientY + 'px';
+            surpriseElement.style.transform = 'translate(-50%, -50%)';
+            surpriseElement.style.zIndex = '9999';
+            surpriseElement.style.pointerEvents = 'none';
+            
+            document.body.appendChild(surpriseElement);
+            
+            // Aguardar um pouco para o elemento ser renderizado
+            setTimeout(() => {
+                const textElement = surpriseElement.querySelector('.surprise-text');
+                
+                // Criar confetes (reduzido)
+                createConfetti();
+                
+                // Criar corações a partir do texto
+                createHearts(textElement);
+            }, 50);
+            
+            // Remover após 2 segundos
+            setTimeout(() => {
+                if (surpriseElement.parentNode) {
+                    surpriseElement.parentNode.removeChild(surpriseElement);
+                }
+            }, 2000);
+        }
+        
+        // Função para criar confetes
+        function createConfetti() {
+            for (let i = 0; i < 20; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = getRandomColor();
+                confetti.style.animationDelay = Math.random() * 1 + 's';
+                
+                document.body.appendChild(confetti);
+                
+                // Remover após a animação
+                setTimeout(() => {
+                    if (confetti.parentNode) {
+                        confetti.parentNode.removeChild(confetti);
+                    }
+                }, 3000);
+            }
+        }
+        
+        // Função para criar corações a partir do texto
+        function createHearts(textElement) {
+            const rect = textElement.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            for (let i = 0; i < 8; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = '❤️';
+                
+                // Posição inicial no centro do texto com pequena variação
+                const startX = centerX + (Math.random() - 0.5) * 60;
+                heart.style.left = startX + 'px';
+                heart.style.top = centerY + 'px';
+                
+                // Movimento lateral sutil durante a queda
+                const driftX = (Math.random() - 0.5) * 80;
+                heart.style.setProperty('--drift-x', driftX + 'px');
+                
+                // Delay escalonado para criar efeito mais natural
+                heart.style.animationDelay = (i * 0.2) + 's';
+                
+                document.body.appendChild(heart);
+                
+                // Remover após a animação
+                setTimeout(() => {
+                    if (heart.parentNode) {
+                        heart.parentNode.removeChild(heart);
+                    }
+                }, 3200 + (i * 200));
+            }
+        }
+        
+        // Função para gerar cores aleatórias
+        function getRandomColor() {
+            const colors = ['#FF69B4', '#FF1493', '#DC143C', '#B22222', '#8B008B', '#9400D3', '#4B0082'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+        
+        // Inicializar a chuva quando a página carregar
+        window.onload = function() {
+            createRain();
+        };
+    </script>
+</body>
+</html>
